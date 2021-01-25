@@ -20,18 +20,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-telegram.onText(/\/start/g, async (message) => {
+telegram.onText(/\/start/gi, async (message) => {
     const chatId = message.chat.id;
     await telegram.sendMessage(chatId, `Olá ${message.chat.first_name}! Sou o bot do Monote 😀`);
     telegram.sendMessage(chatId, welcome());
 });
 
-telegram.onText(/obrigado|valeu|tks|vlw/gmi, (message) => {
+telegram.onText(/obrigado|valeu|tks|vlw/gi, (message) => {
     const chatId = message.chat.id;
     telegram.sendMessage(chatId, `De nada ${message.chat.first_name}! Agradeça ao Thiago Furlan 😀`);
 });
 
-telegram.onText(/^cota[cç][aã]o\s+[a-z]{4}[0-9]{1,2}$/gi, async (message) => {
+telegram.onText(/^cota(ca|ça|çã|cã)o\s+[a-z]{4}[0-9]{1,2}$/gi, async (message) => {
     const chatId = message.chat.id;
     const content = message.text.split(' ');
 
