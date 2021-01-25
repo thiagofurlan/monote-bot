@@ -4,7 +4,14 @@ const { upper } = require('../utils/string');
 class TriggerService {
 
     async find(code) {
+        if (code) {
+            return await Trigger.find();
+        }
+        return await Trigger.find({ code });
+    }
 
+    async findByRecipient(recipient) {
+        return await Trigger.find({ recipient });
     }
 
     async store(trigger, chatId) {
@@ -15,6 +22,21 @@ class TriggerService {
             channel: 'telegram',
             recipient: chatId
         });
+    }
+
+    toView(triggers) {
+        let result = ``;
+        if (!triggers) {
+            return result;
+        }
+        for (let trigger of triggers) {
+            if (trigger.condition === '>') {
+                result += `Vender ${trigger.code} em ${trigger.price}\n`;
+                continue;
+            }
+            result += `Comprar ${trigger.code} em ${trigger.price}\n`;
+        }
+        return result;
     }
 
 }

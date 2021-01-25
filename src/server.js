@@ -102,6 +102,19 @@ telegram.onText(/venda/gi, async (message) => {
     }
 });
 
+telegram.onText(/^lista$/gi, async (message) => {
+    const chatId = message.chat.id;
+    const firstName = message.chat.first_name;
+    const triggerService = new TriggerService();
+    const triggers = await triggerService.findByRecipient(chatId);
+    
+    if (!triggers) {
+        telegram.sendMessage(chatId, `Oi ${firstName}! Ainda não tenho nenhum aviso de intenção. Cadastre um!`);
+        return;
+    }
+    telegram.sendMessage(chatId, triggerService.toView(triggers));
+});
+
 schedule.scheduleJob('*/10 * * * * *', async () => {
     const stocks = await Stock.find();
 
