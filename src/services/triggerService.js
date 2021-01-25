@@ -1,4 +1,5 @@
 const Trigger = require('../models/Trigger');
+const { format } = require('../utils/number');
 const { upper } = require('../utils/string');
 
 class TriggerService {
@@ -31,10 +32,10 @@ class TriggerService {
         }
         for (let trigger of triggers) {
             if (trigger.condition === '>') {
-                result += `Vender ${trigger.code} em ${trigger.price}\n`;
+                result += `Vender ${trigger.code} em ${format(trigger.price)}\n`;
                 continue;
             }
-            result += `Comprar ${trigger.code} em ${trigger.price}\n`;
+            result += `Comprar ${trigger.code} em ${format(trigger.price)}\n`;
         }
         return result;
     }
