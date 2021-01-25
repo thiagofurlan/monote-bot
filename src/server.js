@@ -31,7 +31,7 @@ telegram.onText(/obrigado|valeu|tks|vlw/gmi, (message) => {
     telegram.sendMessage(chatId, `De nada ${message.chat.first_name}! Agradeça ao Thiago Furlan 😀`);
 });
 
-telegram.onText(/^cota[cç][aã]o$/gi, async (message) => {
+telegram.onText(/^cota[cç][aã]o\s+[a-z]{4}[0-9]{1,2}$/gi, async (message) => {
     const chatId = message.chat.id;
     const content = message.text.split(' ');
 
