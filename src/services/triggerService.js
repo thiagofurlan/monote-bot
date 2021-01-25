@@ -27,9 +27,11 @@ class TriggerService {
 
     toView(triggers) {
         let result = ``;
+
         if (!triggers) {
             return result;
         }
+
         for (let trigger of triggers) {
             if (trigger.condition === '>') {
                 result += `Vender ${trigger.code} em ${format(trigger.price)}\n`;
@@ -37,6 +39,7 @@ class TriggerService {
             }
             result += `Comprar ${trigger.code} em ${format(trigger.price)}\n`;
         }
+        
         return result;
     }
 

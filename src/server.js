@@ -31,7 +31,7 @@ telegram.onText(/obrigado|valeu|tks|vlw/gmi, (message) => {
     telegram.sendMessage(chatId, `De nada ${message.chat.first_name}! Agradeça ao Thiago Furlan 😀`);
 });
 
-telegram.onText(/cotacao/gi, async (message) => {
+telegram.onText(/^cota[cç][aã]o$/gi, async (message) => {
     const chatId = message.chat.id;
     const content = message.text.split(' ');
 
@@ -70,7 +70,7 @@ telegram.onText(/compra/gi, async (message) => {
             price: content[2]
         }, chatId);
 
-        telegram.sendMessage(chatId, `Anotado! Vou te avisar quando estiver bom para compra`);
+        telegram.sendMessage(chatId, `Anotado! Vou te avisar quando estiver bom para compra.`);
     } else {
         telegram.sendMessage(chatId, 'Código do ativo não encontrado...');
     }
@@ -96,7 +96,7 @@ telegram.onText(/venda/gi, async (message) => {
             price: content[2]
         }, chatId);
 
-        telegram.sendMessage(chatId, `Anotado! Vou te avisar quando estiver bom para venda`);
+        telegram.sendMessage(chatId, `Anotado! Vou te avisar quando estiver bom para venda.`);
     } else {
         telegram.sendMessage(chatId, 'Não consegui anotar, tenta novamente?');
     }
@@ -109,7 +109,7 @@ telegram.onText(/^lista$/gi, async (message) => {
     const triggers = await triggerService.findByRecipient(chatId);
     
     if (!triggers) {
-        telegram.sendMessage(chatId, `Oi ${firstName}! Ainda não tenho nenhum aviso de intenção. Cadastre um!`);
+        telegram.sendMessage(chatId, `Oi ${firstName}! Você ainda não me ensinou a comprar ou vender 😴. Cadastre um ativo.`);
         return;
     }
     telegram.sendMessage(chatId, triggerService.toView(triggers));
