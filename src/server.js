@@ -119,7 +119,7 @@ schedule.scheduleJob('*/10 * * * * *', async () => {
     const stocks = await Stock.find();
 
     for (let stock of stocks) {
-        let triggers = await Trigger.find({ code: stock.code, condition: '<', price: { $gt: stock.price } });
+        let triggers = await Trigger.find({ code: stock.code, condition: '<', price: { $gte: stock.price } });
         if (triggers.length > 0) {
             for (let trigger of triggers) {
                 telegram.sendMessage(trigger.recipient, `Tá na hora! ${trigger.code} tá saindo por ${format(stock.price)} 🤑`);
@@ -129,7 +129,7 @@ schedule.scheduleJob('*/10 * * * * *', async () => {
     }
 
     for (let stock of stocks) {
-        let triggers = await Trigger.find({ code: stock.code, condition: '>', price: { $lt: stock.price } });
+        let triggers = await Trigger.find({ code: stock.code, condition: '>', price: { $lte: stock.price } });
         if (triggers.length > 0) {
             for (let trigger of triggers) {
                 telegram.sendMessage(trigger.recipient, `Olá! ${trigger.code} está em ${format(stock.price)}, você pediu para lembrar quando fosse uma boa hora para vender.`);
