@@ -5,10 +5,10 @@ const { parse } = require('../utils/number');
 
 let scrape = async (code) => {
     try {
-        const { data } = await axios.get(`https://www.infomoney.com.br/${code}`);
+        const { data } = await axios.get(`https://br.advfn.com/bolsa-de-valores/bovespa/${code}/cotacao`);
         const $ = cheerio.load(data);
 
-        let valueString = $('.line-info > .value > p').text();
+        let valueString = $('#quoteElementPiece1').text();
         let value = parse(valueString);
 
         if (value) {
