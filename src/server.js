@@ -23,7 +23,7 @@ app.use(express.json());
 telegram.onText(/\/start/gi, async (message) => {
     const chatId = message.chat.id;
     await telegram.sendMessage(chatId, `Olá ${message.chat.first_name}! Sou o bot do Monote 😀`);
-    telegram.sendMessage(chatId, welcome());
+    telegram.sendMessage(chatId, welcome(), { parse_mode: 'HTML' });
 });
 
 telegram.onText(/obrigado|valeu|tks|vlw/gi, (message) => {
@@ -107,7 +107,7 @@ telegram.onText(/^lista$/gi, async (message) => {
     const firstName = message.chat.first_name;
     const triggerService = new TriggerService();
     const triggers = await triggerService.findByRecipient(chatId);
-    
+
     if (!triggers) {
         telegram.sendMessage(chatId, `Oi ${firstName}! Você ainda não me ensinou a comprar ou vender 😴. Cadastre um ativo.`);
         return;
