@@ -31,11 +31,11 @@ telegram.onText(/obrigado|valeu|tks|vlw/gi, (message) => {
     telegram.sendMessage(chatId, `De nada ${message.chat.first_name}! Agradeça ao Thiago Furlan 😀`);
 });
 
-telegram.onText(/^cota(ca|ça|çã|cã)o\s+[a-z]{4}[0-9]{1,2}$/gi, async (message) => {
+telegram.onText(/^cota(ca|ça|çã|cã)o\s\w{5}$/gi, async (message) => {
     const chatId = message.chat.id;
     const content = message.text.split(' ');
 
-    if (!message.text.match(/^cotacao\s{1}[a-z]{4}\d+[a-z]*$/gi)) {
+    if (!message.text.match(/^cotacao\s\w{5}$/gi)) {
         telegram.sendMessage(chatId, 'Comando inválido! Envie cotacao CODIGO Ex. cotacao ITSA4');
         return;
     }
@@ -54,7 +54,7 @@ telegram.onText(/compra/gi, async (message) => {
     const chatId = message.chat.id;
     const content = message.text.split(' ');
 
-    if (!message.text.match(/^compra\s{1}[a-z]{4}\d+[a-z]*\s{1}[0-9]+\.?\d*$/gi)) {
+    if (!message.text.match(/^compra\s\w{5}\s[0-9]+\.?\d*$/gi)) {
         telegram.sendMessage(chatId, 'Comando inválido! Envie \"compra CODIGO VALOR\" Ex. compra ITSA4 11');
         return;
     }
@@ -80,7 +80,7 @@ telegram.onText(/venda/gi, async (message) => {
     const chatId = message.chat.id;
     const content = message.text.split(' ');
 
-    if (!message.text.match(/^venda\s{1}[a-z]{4}\d+[a-z]*\s{1}[0-9]+\.?\d*$/gi)) {
+    if (!message.text.match(/^venda\s\w{5}\s[0-9]+\.?\d*$/gi)) {
         telegram.sendMessage(chatId, 'Comando inválido! Envie \"venda CODIGO VALOR\" Ex. venda ITSA4 11');
         return;
     }
